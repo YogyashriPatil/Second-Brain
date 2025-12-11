@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
-import {User ,Content,Tag,Link} from "./db"
+import {User ,Content,Tag,Link} from "./db.js"
 // import dotenv from "dotenv"
 // // dotenv.config();
 // const port = process.env.PORT;
@@ -12,12 +12,26 @@ mongoose.connect("mongodb+srv://practice1:practice1@cluster0.q24qtpx.mongodb.net
 
 
 const app = express();
+
+app.post("api/v1/signup", async(req,res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    User.create({
+        username: username,
+        password:password
+    })
+
+    res.json({
+        message : "user signed up"
+    })
+})
 app.post("api/v1/signin",async (req,res) => {
-    const email = req.body.email;
+    const username = req.body.username;
     const password = req.body.password;
 
     const user =await User.findOne({
-        email: email
+        username: username
     })
 
     if(!user) {
@@ -39,6 +53,6 @@ app.delete("api/v1/signin",(req,res) => {
 app.post("api/v1/brain/share",(req,res) => {
     
 })
-app.get("api/v1/brain/:shareLink", (req,res){
+app.get("api/v1/brain/:shareLink", (req,res) => {
 
 })

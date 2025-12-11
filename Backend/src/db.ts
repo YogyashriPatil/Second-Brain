@@ -1,19 +1,20 @@
 import mongoose, { Types } from "mongoose";
 const contenTypes = ['image','video','article','audio'];
 
-const userSchema = new mongoose.Schema({
-    userName:{
+// mongoose.connect("")
+const userModel = new mongoose.Schema({
+    username:{
         type: String,
         required: true,
         unique: true
     },
-    passWord: {
+    password: {
         type: String,
         required: true
     }
 })
 
-const contentSchema = new mongoose.Schema({
+const contentModel = new mongoose.Schema({
     Link:{
         type:String,
         required:true
@@ -60,14 +61,8 @@ const LinkSchema = new mongoose.Schema({
 })
 
 
-const User = mongoose.model("User", userSchema);
-const Content = mongoose.model("Content", contentSchema);
-const Tag = mongoose.model("Tag", tagsSchema);
-const Link = mongoose.model("Link", LinkSchema);
+export const User = mongoose.model("User", userModel);
+export const Content = mongoose.model("Content", contentModel);
+export const Tag = mongoose.model("Tag", tagsSchema);
+export const Link = mongoose.model("Link", LinkSchema);
 
-module.exports = {
-    User: User,
-    Content: Content,
-    Tag: Tag,
-    Link: Link
-}
