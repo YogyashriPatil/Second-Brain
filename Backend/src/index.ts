@@ -1,49 +1,83 @@
 import express from "express";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 import {User ,Content,Tag,Link} from "./db.js"
-// import dotenv from "dotenv"
-// // dotenv.config();
+import dotenv from "dotenv"
+
+dotenv.config();
 // const port = process.env.PORT;
 
-// const jwtpassword = process.env.JWT_SECRET;
+const jwtpassword = "abcd";
 // app.use(express.json());
-mongoose.connect("mongodb+srv://practice1:practice1@cluster0.q24qtpx.mongodb.net/Second-Brain")
+const mongo_url = process.env.MONGO_DB_URL ; 
+mongoose.connect(mongo_url)
 
 
 const app = express();
 
 app.post("api/v1/signup", async(req,res) => {
+    // todo: zod validation , hash the password
     const username = req.body.username;
     const password = req.body.password;
 
-    User.create({
-        username: username,
-        password:password
-    })
+    try {
+        await User.create({
+            username: username,
+            password:password
+        })
 
-    res.json({
-        message : "user signed up"
-    })
+        res.json({
+            message : "user signed up"
+        })
+    }
+    catch(e){
+        res.status(411).json({
+            message:"user already exiss"
+        })
+    }
+
 })
 app.post("api/v1/signin",async (req,res) => {
     const username = req.body.username;
     const password = req.body.password;
 
     const user =await User.findOne({
-        username: username
+        username: username,
+        password:password
     })
 
+    // use the jwt logic
     if(!user) {
         res.status(403).json({
             message : "User does not exist in our db"
         })
         return
     }
+
+    const passwordMatch = bcrypt.compare(password, express.response.password);
+    
+    if(passwordMatch) {
+        const token = jwt.sign({
+                id: user._id.toString
+        },jwtpassword)
+        res.json({
+            token: token
+        })
+    }
+    else 
+    {
+        res.status(403).json({
+            message: "User not found"
+        })
+    }
 })
+// fcreate the content
+// get the userid from middleware
+// 
 app.post("api/v1/content",(req,res) => {
     
-})
+ })
 app.get("api/v1/content",(req,res) => {
     
 })
@@ -55,4 +89,8 @@ app.post("api/v1/brain/share",(req,res) => {
 })
 app.get("api/v1/brain/:shareLink", (req,res) => {
 
+})
+
+app.listen(3000, () => {
+    console.log("server listening on the port 3000")
 })
