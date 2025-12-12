@@ -1,7 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
 import {User ,Content,Tag,Link} from "./db.js"
 import dotenv from "dotenv"
 
@@ -10,7 +9,7 @@ dotenv.config();
 
 const jwtpassword = "abcd";
 // app.use(express.json());
-const mongo_url = process.env.MONGO_DB_URL ; 
+const mongo_url = process.env.MONGO_DB_URL; 
 mongoose.connect(mongo_url)
 
 
@@ -48,27 +47,17 @@ app.post("api/v1/signin",async (req,res) => {
     })
 
     // use the jwt logic
-    if(!user) {
-        res.status(403).json({
-            message : "User does not exist in our db"
-        })
-        return
-    }
-
-    const passwordMatch = bcrypt.compare(password, express.response.password);
-    
-    if(passwordMatch) {
+    if(user) {
         const token = jwt.sign({
                 id: user._id.toString
         },jwtpassword)
         res.json({
-            token: token
+            message : token
         })
     }
-    else 
-    {
+    else{
         res.status(403).json({
-            message: "User not found"
+            message: "Incorrrect credentials"
         })
     }
 })
