@@ -10,7 +10,7 @@ dotenv.config();
 const jwtpassword = "abcd";
 // app.use(express.json());
 const mongo_url = process.env.MONGO_DB_URL; 
-mongoose.connect(mongo_url)
+mongoose.connect()
 
 
 const app = express();
