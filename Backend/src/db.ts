@@ -1,7 +1,14 @@
 import mongoose, { Types } from "mongoose";
 const contenTypes = ['image','video','article','audio'];
+import dotenv from "dotenv"
 
-// mongoose.connect("")
+dotenv.config();
+const mongo_url= process.env.MONGO_DB_URL; 
+if (!mongo_url) {
+  throw new Error("MONGO_DB_URL is not defined in environment variables");
+}
+mongoose.connect(mongo_url);
+
 const userModel = new mongoose.Schema({
     username:{
         type: String,
