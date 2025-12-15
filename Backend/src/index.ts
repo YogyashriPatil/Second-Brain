@@ -113,9 +113,13 @@ app.delete("/api/v1/content",userMiddleware, async (req,res) => {
 app.post("/api/v1/brain/share",userMiddleware, async (req,res) => {
     const share = req.body.share;
     if(share){
+        const hash = random(10);
         await LinkModel.create({
             userId: req.userId,
-            hash: random(10)
+            hash: hash
+        })
+        res.json({
+            message: "updated shared link" + hash
         })
     }
     else{
@@ -127,13 +131,35 @@ app.post("/api/v1/brain/share",userMiddleware, async (req,res) => {
         message: "updated shared link"
     })
 })
-app.get("/api/v1/brain/:shareLink", (req,res) => {
+app.get("/api/v1/brain/:shareLink", async (req,res) => {
     const hash = req.params.shareLink;
 
     const link = await LinkModel.findOne({
         hash
     })
-    if(!li)
+    if(!link){
+        res.status(411).json({
+            message: "sorry incorrect input"
+        })
+        return
+    }
+    const content = await Content.find({
+        userId: link.userId
+    })
+    const user = await User.findOne({
+        userId: link.userId
+    })
+    if(!user){
+        res.status(411).json({
+            message: "user not found"
+        })
+        return
+    }
+
+    res.json({
+        username:user?.username,
+        content: content
+    })
 })
 
 app.listen(port, () => {

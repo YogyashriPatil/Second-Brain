@@ -1,26 +1,48 @@
+import { ShareIcon } from "../../icons/ShareIcon"
+
 interface CardProps {
     title: string,
-    logo: any,
-    description: string,
-    imageLink?: any
-    time?: string
+    link: string,
+    type: "twitter" | "youtube"
+    // description: string,
+    // imageLink?: any
+    // time?: string
 }
-export const Card = (props: CardProps) => {
-    return <div className="border-2 border-zinc-900 w-60 h-40 rounded-2xl">
-        <div>
-            <div>
-                {props.logo}
+export const Card = ({title, link, type} : CardProps) => {
+    return <div >
+        <div className="p-8 bg-white rounded-md shadow-md border-gray-200 max-w-80 border min-h-60">
+            <div className="flex justify-between items-center">
+                <div className="flex items-center text-lg">
+                    <div className="pr-2 text-gray-500">
+                        <ShareIcon size='md'/>
+                    </div>
+                    {title}
+                </div>
+                <div className="flex items-center">
+                    <div className="pr-2 text-gray-500">
+                        <a href={link} target="_blank">
+                            <ShareIcon size="md" />
+                        </a>
+                    </div>
+
+                    <div className="pr-2 text-gray-500">
+                        <ShareIcon size="md" />
+                    </div>
+                </div>
             </div>
-            <div>
-                {props.title}
-                {props.time}
+            <div className="pt-4">
+                {type === "youtube" && <iframe className="w-full">
+                    {/* also add the link in the iframe tag */}
+                </iframe> }
+                {/* for the output video <iframe className="w-full"></iframe> */}
+                {/* add the twiiter embedding and the script add into the index.html file */}
+
+                {type ==="twitter" && <blockquote className="twitter-tweet">
+                    <a href={link.replace("x.com","twitter.com")}></a>
+                </blockquote>}
+                
             </div>
         </div>
-
-        <div>
-            {props.description}
-            {props.imageLink}
-        </div>
-
+       
     </div>
 }

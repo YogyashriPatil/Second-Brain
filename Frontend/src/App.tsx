@@ -5,17 +5,21 @@ import { Button } from './components/ui/Button'
 import { PlusIcon } from './icons/PlusIcon'
 import { ShareIcon } from './icons/ShareIcon'
 import { Card } from './components/ui/Card'
-import { Tiktok } from './icons/Tiktok'
 
 function App() {
 
   return (
-    <div>
-      <div className='flex p-1 m-2 space-x-3'>
+    <div className='bg-purple-50'>
+      <div className='flex justify-end gap-4'>
           <Button startIcon={<ShareIcon size='lg'/>}  size='sm' variant='primary' text='Share Brain' />
           <Button startIcon={<PlusIcon size='lg' />} size='sm' variant='secondary' text='Add Content' />
       </div>
-      <Card logo={<Tiktok />} title='first tweet' time='12/12/1212' description="it's my first twit" imageLink={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9dUV1ycQIhPSruz2r7yrWuWfH1fmHpSNaeQ&s"}/>
+      Second Brain
+      <div className='flex'>
+        <Card title='first tweet' link='http.asd/f' type='twitter'/>
+        <Card title='Video first ' link='http.asd/f' type='youtube'/>
+
+      </div>
     </div>
   )
 }

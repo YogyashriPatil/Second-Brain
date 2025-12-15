@@ -16,8 +16,7 @@ const sizeStyles = {
     "md": "px-6 py-3",
     "lg": "px-8 py-4",
 }
-const defaultStyles = "rounded-md flex"
-
+const defaultStyles = "rounded-md flex font-notmal"
 export const Button = (props : ButtonProps) => {
     return <button className={`${variantStyle[props.variant]} ${defaultStyles} ${sizeStyles[props.size]}`}>
         <div className="flex items-center">
