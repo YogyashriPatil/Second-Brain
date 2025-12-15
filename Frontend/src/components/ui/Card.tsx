@@ -6,9 +6,6 @@ interface CardProps {
     title: string,
     link: string,
     type: "twitter" | "youtube"
-    // description: string,
-    // imageLink?: any
-    // time?: string
 }
 export const Card = ({title, link, type} : CardProps) => {
     return <div >
@@ -33,13 +30,13 @@ export const Card = ({title, link, type} : CardProps) => {
                 </div>
             </div>
             <div className="pt-4">
-                {type === "youtube" && <iframe className="w-full" width="560" height="315" src="https://www.youtube.com/embed/aV0mlw1Hfh8?si=3yxer1knDeguuqZg" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe> }
+                {type === "youtube" && <iframe className="w-full" width="560" height="315" src={link} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe> }
                 {/* for the output video <iframe className="w-full"></iframe> */}
                 {/* add the twiiter embedding and the script add into the index.html file */}
 
                 {type ==="twitter" &&
                 <blockquote className="twitter-tweet"> 
-                    <a href="https://twitter.com/YogyashriP/status/1976266948527976734"></a>
+                    <a href={link.replace("x.com","twitter.com")}></a>
                 </blockquote> }
             </div>
         </div>
