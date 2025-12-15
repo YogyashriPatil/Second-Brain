@@ -9,13 +9,18 @@ import { Doc } from './icons/Doc'
 import { CreateContentModel } from './components/CreateContentModel'
 
 function App() {
+  const [modalOpen, setModalOpen] = useState(true);
 
   return (
     <div className='bg-purple-50'>
-      <CreateContentModel open={true} />
+      <CreateContentModel open={modalOpen} onClose={() => {
+        setModalOpen(false)
+      }} />
       <div className='flex justify-end gap-4'>
           <Button startIcon={<ShareIcon size='lg'/>}  size='sm' variant='primary' text='Share Brain' />
-          <Button startIcon={<PlusIcon size='lg' />} size='sm' variant='secondary' text='Add Content' />
+          <Button onClick={() => {
+            setModalOpen(true)
+          }} startIcon={<PlusIcon size='lg' />} size='sm' variant='secondary' text='Add Content' />
       </div>
       Second Brain
       <div className='flex gap-3'>
