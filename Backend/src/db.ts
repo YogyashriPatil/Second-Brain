@@ -71,5 +71,5 @@ const LinkSchema = new mongoose.Schema({
 export const User = mongoose.model("User", userModel);
 export const Content = mongoose.model("Content", contentModel);
 export const Tag = mongoose.model("Tag", tagsSchema);
-export const Link = mongoose.model("Link", LinkSchema);
+export const LinkModel = mongoose.model("Link", LinkSchema);
 
