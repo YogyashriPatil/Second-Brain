@@ -1,3 +1,5 @@
+import { DeleteIcon } from "../../icons/DeleteIcon"
+import { Doc } from "../../icons/Doc"
 import { ShareIcon } from "../../icons/ShareIcon"
 
 interface CardProps {
@@ -14,7 +16,7 @@ export const Card = ({title, link, type} : CardProps) => {
             <div className="flex justify-between items-center">
                 <div className="flex items-center text-lg">
                     <div className="pr-2 text-gray-500">
-                        <ShareIcon size='md'/>
+                        <Doc size="lg"/>
                     </div>
                     {title}
                 </div>
@@ -26,21 +28,19 @@ export const Card = ({title, link, type} : CardProps) => {
                     </div>
 
                     <div className="pr-2 text-gray-500">
-                        <ShareIcon size="md" />
+                        <DeleteIcon size="lg" />
                     </div>
                 </div>
             </div>
             <div className="pt-4">
-                {type === "youtube" && <iframe className="w-full">
-                    {/* also add the link in the iframe tag */}
-                </iframe> }
+                {type === "youtube" && <iframe className="w-full" width="560" height="315" src="https://www.youtube.com/embed/aV0mlw1Hfh8?si=3yxer1knDeguuqZg" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe> }
                 {/* for the output video <iframe className="w-full"></iframe> */}
                 {/* add the twiiter embedding and the script add into the index.html file */}
 
-                {type ==="twitter" && <blockquote className="twitter-tweet">
-                    <a href={link.replace("x.com","twitter.com")}></a>
-                </blockquote>}
-                
+                {type ==="twitter" &&
+                <blockquote className="twitter-tweet"> 
+                    <a href="https://twitter.com/YogyashriP/status/1976266948527976734"></a>
+                </blockquote> }
             </div>
         </div>
        

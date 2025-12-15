@@ -5,6 +5,7 @@ import { Button } from './components/ui/Button'
 import { PlusIcon } from './icons/PlusIcon'
 import { ShareIcon } from './icons/ShareIcon'
 import { Card } from './components/ui/Card'
+import { Doc } from './icons/Doc'
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
         <Card title='Video first ' link='http.asd/f' type='youtube'/>
 
       </div>
+
     </div>
   )
 }
