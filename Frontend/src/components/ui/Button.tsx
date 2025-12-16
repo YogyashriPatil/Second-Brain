@@ -6,6 +6,8 @@ interface ButtonProps {
     startIcon?: any;
     endIcon?: any;
     onClick?: () => void ;
+    loading?: boolean;
+    fullwidth?:boolean
 }
 const variantStyle = {
     "primary":"bg-purple-600 text-white",
@@ -18,11 +20,10 @@ const sizeStyles = {
 }
 const defaultStyles = "rounded-md flex font-notmal"
 export const Button = (props : ButtonProps) => {
-    return <button onClick={props.onClick} className={`${variantStyle[props.variant]} ${defaultStyles} ${sizeStyles[props.size]} cursor-pointer`}>
+    return <button onClick={props.onClick} className={`${variantStyle[props.variant]} ${defaultStyles} ${sizeStyles[props.size]} ${props.loading ? "opacity-45 cursor-auto":" cursor-pointer" }  ${props.fullwidth? "w-full flex justify-center items-center" : ""}`}>
         <div className="flex items-center">
             <div className="pr-3">{props.startIcon}</div> 
             <div className="pl-2 pr-3">{props.text}</div>
-            {props.endIcon}
         </div>
     </button>
 }
