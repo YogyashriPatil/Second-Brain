@@ -1,4 +1,4 @@
-import mongoose, { Types } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 const contenTypes = ['image','video','article','audio'];
 import dotenv from "dotenv"
 
@@ -9,67 +9,25 @@ if (!mongo_url) {
 }
 mongoose.connect(mongo_url);
 
-const userModel = new mongoose.Schema({
-    username:{
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true
-    }
+const UserSchema = new Schema({
+    username: {type: String, unique: true},
+    password: String
 })
 
-const contentModel = new mongoose.Schema({
-    Link:{
-        type:String,
-        required:true
-    },
-    type:{
-        type: String,
-        enum: contenTypes,
-        required: true
-    },
-    title:{
-        type:String,
-        required:true
-    },
-    tags:[
-        {
-            type: Types.ObjectId,
-            ref:'Tag'
-        }
-    ],
-    userId :{
-        type: Types.ObjectId,
-        ref:'User',
-        required: true
-    }
+export const UserModel = model("User", UserSchema);
+
+const ContentSchema = new Schema({
+    title: String,
+    link: String,
+    tags: [{type: mongoose.Types.ObjectId, ref: 'Tag'}],
+    type: String,
+    userId: {type: mongoose.Types.ObjectId, ref: 'User', required: true },
 })
 
-const tagsSchema = new mongoose.Schema({
-    title:{
-        type:String,
-        required:true
-    }
+const LinkSchema = new Schema({
+    hash: String,
+    userId: {type: mongoose.Types.ObjectId, ref: 'User', required: true, unique: true },
 })
 
-const LinkSchema = new mongoose.Schema({
-    hash: {
-        type: String,
-        required: true,
-    },
-    userId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'User',
-        required: true
-    }
-})
-
-
-export const User = mongoose.model("User", userModel);
-export const Content = mongoose.model("Content", contentModel);
-export const Tag = mongoose.model("Tag", tagsSchema);
-export const LinkModel = mongoose.model("Link", LinkSchema);
-
+export const LinkModel = model("Links", LinkSchema);
+export const ContentModel = model("Content", ContentSchema);
